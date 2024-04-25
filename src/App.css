@@ -1,0 +1,17 @@
+.app{
+ text-align: center;
+}
+button{
+  font-size: 30px;
+  margin: 5px;
+}
+input{
+  font-size: 30px;
+}
+span{
+  color: red;
+  font-size: 40px;
+}
+.result{
+  font-size: 40px;
+}
