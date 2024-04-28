@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useRef, useState } from 'react';
+import './App.css';
+
+// let renCount = 1;
 
 function App() {
-  const [count, setCount] = useState(0)
+	// const [renCount, setRenCount] = useState(1);
+	const [test, setTest] = useState('Ok');
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  // useEffect(() => {
+  //   setRenCount(prev => prev + 1)
+  // })
+  // With global var
+  // useEffect(() => {
+  //   renCount++
+  // })
+
+  // useRef()
+
+  const rCount = useRef(1);
+  const fieldRef = useRef(null);
+  const lastState = useRef('');
+
+
+  useEffect(() => {
+    console.dir(rCount)
+    rCount.current++
+  })
+
+  useEffect(() => {
+    lastState.current = test
+    console.log(lastState.current)
+  })
+
+  const handlerFocus = () => {
+    console.dir(fieldRef.current)
+    return fieldRef.current.focus()
+  }
+
+	return (
+		<div className='app'>
+			<h1>Number of render : <span>{rCount.current}</span></h1>
+			{/* <h2>Count of render: {renCount}</h2> */}
+			<h2>Last state: {lastState.current}</h2>
+			<input
+				ref={fieldRef}
+				type='text'
+				onChange={(e) => setTest(e.target.value)}
+				value={test}
+			/>
+			<button onFocus={handlerFocus}>Focus</button>
+		</div>
+	);
 }
 
-export default App
+export default App;
